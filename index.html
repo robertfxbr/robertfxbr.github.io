@@ -266,6 +266,7 @@
 
   /* project cards */
   .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 40px; }
+  .cards.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 24px 22px; display: flex; flex-direction: column; gap: 16px; transition: border-color .2s; }
   .card:hover { border-color: var(--line-hi); }
   .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
@@ -438,6 +439,7 @@
     .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 48px; }
     .portrait { max-width: 420px; }
     .cards { grid-template-columns: 1fr; }
+    .cards.two { grid-template-columns: 1fr; }
     .split, .scope { grid-template-columns: 1fr; gap: 28px; }
     nav { display: none; }
   }
@@ -470,6 +472,7 @@
         <li><a data-i18n="t0" href="#code">Public code</a></li>
         <li><a data-i18n="t1" href="#ledger">Ledger</a></li>
         <li><a href="#pipeline">Pipeline</a></li>
+        <li><a data-i18n="t137" href="#agents">Agents</a></li>
         <li><a data-i18n="t2" href="#scope">Scope</a></li>
         <li><a data-i18n="t3" href="#contact">Contact</a></li>
       </ul>
@@ -513,15 +516,15 @@
         <div class="readout">
           <div><span>Base</span><b>Curitiba, BR</b></div>
           <div><span data-i18n="t11">Mode</span><b data-i18n="t12">Remote / hybrid</b></div>
-          <div><span data-i18n="t13">pytest &middot; public</span><b data-i18n="t14">304 tests</b></div>
+          <div><span data-i18n="t13">pytest &middot; public</span><b data-i18n="t14">462 tests</b></div>
           <div><span data-i18n="t15">Degree</span><b data-i18n="t16">ADS &middot; sem. 1</b></div>
         </div>
       </figure>
     </section>
 
     <div class="index">
-      <div><b>3</b><span data-i18n="t17">Public repositories</span></div>
-      <div><b>304</b><span data-i18n="t18">Tests, all offline</span></div>
+      <div><b>5</b><span data-i18n="t17">Public repositories</span></div>
+      <div><b>462</b><span data-i18n="t18">Tests, all offline</span></div>
       <div><b>2</b><span data-i18n="t19">Private systems</span></div>
       <div><b>4</b><span data-i18n="t20">Hypotheses rejected</span></div>
     </div>
@@ -531,8 +534,9 @@
       <p class="eyebrow"><span data-i18n="t21"><span class="hash">#</span> 01 &middot; Verifiable</span></p>
       <h2 data-i18n="t22">Public code, <em>rejections first</em></h2>
       <p data-i18n="t23" class="intro">
-        Three smaller projects, open on GitHub with CI on Python 3.11, 3.12 and 3.13. Each one states
-        what it refused to do, what goes in and comes out, and where to check the claim.
+        Three of the five public repositories, all with CI on Python 3.11, 3.12 and 3.13. Each one states
+        what it refused to do, what goes in and comes out, and where to check the claim. The other two,
+        both about AI agents, are in orchestration.
       </p>
 
       <div class="cards">
@@ -741,14 +745,90 @@
       </div>
     </section>
 
+
+    <!-- ============ AGENT ORCHESTRATION ============ -->
+    <section class="block" id="agents">
+      <p class="eyebrow"><span data-i18n="t138"><span class="hash">#</span> 04 &middot; Orchestration</span></p>
+      <h2 data-i18n="t139">Orchestrating agents, <em>with a ruler that can say no</em></h2>
+      <p data-i18n="t140" class="intro">
+        Two public repositories where the agents are not the product: the rules around them are. One fixes
+        who audits whom and refuses to run when that independence collapses; the other measures what a model
+        extracts against a golden set checked by hand, and fails the build below the line.
+      </p>
+
+      <div class="cards two">
+
+        <article class="card">
+          <div class="card-head">
+            <h3><a href="https://github.com/robertfxbr/orchestrating-independent-code-audits">orchestrating-independent-code-audits</a></h3>
+            <span data-i18n="t24" class="status public">Public</span>
+          </div>
+          <p data-i18n="t141" class="what">A process skill plus a Python bridge that runs a code audit across independent agents.</p>
+          <dl class="terms">
+            <div>
+              <dt data-i18n="t25" class="rej">Rejected</dt>
+              <dd data-i18n="t142">The agent that wrote the code approving it, and an approval that outlives the commit it was given for. Who plays each role is chosen on first use and written to a file; the bridge refuses a run where the implementer also audits.</dd>
+            </div>
+            <div>
+              <dt data-i18n="t26">Contract</dt>
+              <dd data-i18n="t143">In: the chosen bindings and a commit. Out: each bound auditor called in phase order, read-only, with the verdict pinned to the commit SHA. Every auditor is checked for a live session before the audit starts; one signed out stops the run with <code>AUDITOR_NOT_READY</code> instead of a silent pass.</dd>
+            </div>
+            <div>
+              <dt data-i18n="t27">Evidence</dt>
+              <dd data-i18n="t144">90 tests, 94% coverage, CI on 3.11&ndash;3.13. The README separates what the bridge enforces with a test from what is only a rule in the skill text.</dd>
+            </div>
+          </dl>
+          <div class="proofs">
+            <a data-i18n="t149" class="proof" href="https://github.com/robertfxbr/orchestrating-independent-code-audits#enforced-by-the-bridge-with-a-test">what is enforced &rarr;</a>
+            <a data-i18n="t39" class="proof" href="https://github.com/robertfxbr/orchestrating-independent-code-audits/actions/workflows/ci.yml">CI runs &rarr;</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <h3><a href="https://github.com/robertfxbr/extrato-contratos">extrato-contratos</a></h3>
+            <span data-i18n="t24" class="status public">Public</span>
+          </div>
+          <p data-i18n="t145" class="what">Extracts contract notices from municipal official gazettes and measures the result against a golden set checked by hand.</p>
+          <dl class="terms">
+            <div>
+              <dt data-i18n="t25" class="rej">Rejected</dt>
+              <dd data-i18n="t146">Calling a prompt good without a ruler. Also rejected: retrying until it passes, and publishing a number the model invented &mdash; an extracted amount or tax ID has to appear in the source text, or the record is dropped.</dd>
+            </div>
+            <div>
+              <dt data-i18n="t26">Contract</dt>
+              <dd data-i18n="t147">In: the gazette text. Out: one strict-schema record per notice, or a stated reason it was dropped. The model sits behind an adapter, and the suite reads recorded answers: no test calls a model, spends or touches the network.</dd>
+            </div>
+            <div>
+              <dt data-i18n="t27">Evidence</dt>
+              <dd data-i18n="t148">Over 13 real notices: 93.7% accuracy per field, 95.4% on the fields that change the meaning, for US$ 0.25. 68 tests, 97% coverage, and CI fails the run below 95% on those fields and 90% overall.</dd>
+            </div>
+          </dl>
+          <div class="proofs">
+            <a data-i18n="t150" class="proof" href="https://github.com/robertfxbr/extrato-contratos/blob/main/relatorio/avaliacao.md">the measurement &rarr;</a>
+            <a data-i18n="t33" class="proof" href="https://github.com/robertfxbr/extrato-contratos#o-que-a-avalia%C3%A7%C3%A3o-n%C3%A3o-prova">the limits &rarr;</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="caveat" style="margin-top:28px">
+        <p data-i18n="t151">
+          <strong>What this does not prove.</strong> The bridge enforces the rules that have a test; the rest of
+          the process lives in the skill text and depends on whoever runs it. The golden set covers one
+          municipality on one day, and one model. Neither repository has been run by a team other than mine.
+        </p>
+      </div>
+    </section>
+
     <!-- ============ SCOPE ============ -->
     <section class="block" id="scope">
-      <p class="eyebrow"><span data-i18n="t103"><span class="hash">#</span> 04 &middot; Method &amp; limits</span></p>
+      <p class="eyebrow"><span data-i18n="t103"><span class="hash">#</span> 05 &middot; Method &amp; limits</span></p>
       <div class="scope">
         <div>
           <h2 data-i18n="t104">How these were built</h2>
           <p data-i18n="t105">
-            All five were built by orchestrating AI coding agents, with my role being architect and
+            All of them were built by orchestrating AI coding agents, with my role being architect and
             reviewer: defining safety invariants first, encoding architecture contracts as automated
             tests, and reviewing every decision against them. The gain is not typing speed; it is
             exploring more alternatives and discarding the bad ones earlier. What I don't delegate is the
@@ -764,7 +844,7 @@
           <h2 data-i18n="t106">What this does <em>not</em> prove</h2>
           <p data-i18n="t107">
             No production deployment with real capital. No cloud infrastructure and no containers: the
-            two larger systems run locally on Windows. CI exists only on the three public projects, and it
+            two larger systems run locally on Windows. CI exists on the five public repositories, and it
             runs tests; nothing is deployed from it. No code reviewed by another engineer, no deep learning,
             no data at scale.
           </p>
@@ -786,7 +866,7 @@
 
 <footer id="contact">
   <div class="shell">
-    <p class="eyebrow"><span data-i18n="t110"><span class="hash">#</span> 05 &middot; Contact</span></p>
+    <p class="eyebrow"><span data-i18n="t110"><span class="hash">#</span> 06 &middot; Contact</span></p>
     <p class="big"><a data-i18n="t111" href="#contact-form" data-open-form>Let's talk about your team.</a></p>
     <div class="contact">
       <a href="https://wa.me/5541996544226" target="_blank" rel="noopener">
@@ -885,7 +965,7 @@
 /* PT/EN: English lives in the markup; Portuguese replaces it by data-i18n key.
    Opens in the viewer's system language unless they picked one before. */
 var I18N = (function () {
-  var PT = {"t0": "Cód. público", "t1": "Registro", "t2": "Escopo", "t3": "Contato", "t4": "Aberto a vagas de dev júnior", "t5": "Desenvolvedor Python &middot; transição de carreira", "t6": "Sistemas que passam pelo", "t7": "Construo sistemas que rodam sem supervisão e documento o que <strong>rejeitei</strong> antes\n          do que mantive. Nas áreas em que trabalho, um resultado que resiste ao escrutínio vale menos\n          que o próprio escrutínio.", "t8": "Ver código público", "t9": "Ler o registro", "t10": "'aberto a vagas de desenvolvedor júnior'", "t11": "Modelo", "t12": "Remoto / híbrido", "t13": "pytest &middot; público", "t14": "304 testes", "t15": "Graduação", "t16": "ADS &middot; 1º sem.", "t17": "Repositórios públicos", "t18": "Testes, todos sem rede", "t19": "Sistemas privados", "t20": "Hipóteses rejeitadas", "t21": "<span class=\"hash\">#</span> 01 &middot; Verificável", "t22": "Código público, <em>rejeições primeiro</em>", "t23": "Três projetos menores, abertos no GitHub, com CI em Python 3.11, 3.12 e 3.13. Cada um diz o\n        que se recusou a fazer, o que entra e o que sai, e onde conferir a afirmação.", "t24": "Público", "t25": "Rejeitado", "t26": "Contrato", "t27": "Evidência", "t28": "Análise reprodutível da cota parlamentar da Câmara dos Deputados: 209.066 lançamentos em 2025.", "t29": "Ranking de deputados por valor gasto. A cota varia por estado para cobrir passagem aérea, então esse ranking mede a distância até Brasília. Um teste falha se alguém acrescentar uma consulta assim.", "t30": "Entra o arquivo público oficial; saem seis respostas em SQL sobre DuckDB e um relatório regenerado pelo CI, com o CPF do deputado descartado na carga.", "t31": "70 testes, 100% de cobertura. Achados fora da documentação: a API de despesas devolve HTTP 200 com lista vazia para todos os deputados; 937 lançamentos são de liderança partidária.", "t32": "o teste &rarr;", "t33": "os limites &rarr;", "t34": "Raspador web guiado por um YAML que descreve o que coletar.", "t35": "Contornar bloqueio com proxy, resolução de captcha ou navegador forjado. Das lojas medidas, uma devolveu 403, uma 503 e duas só renderizam depois do JavaScript. O alvo saiu dessa medição.", "t36": "Entra uma config YAML; sai CSV ou Excel, depois de ler o <code>robots.txt</code> e respeitar o <code>Crawl-delay</code>. Item sem campo obrigatório é descartado e relatado, nunca gravado em branco.", "t37": "155 testes, 100% de cobertura, suíte roda contra páginas salvas, sem rede.", "t38": "as decisões &rarr;", "t39": "execuções do CI &rarr;", "t40": "Executor de automação de navegador para fluxos descritos em YAML.", "t41": "Envio de mensagem em massa em rede social, o uso mais comum desse tipo de bot: viola os termos de terceiros e quebra a cada mudança de layout. Também rejeitado: testar o driver real do Selenium no CI.", "t42": "Entra um fluxo YAML; é validado por inteiro antes de abrir o navegador e depois roda com segredo por variável de ambiente, retry com backoff e <code>--dry-run</code>.", "t43": "79 testes. O Selenium fica atrás de uma interface de seis métodos, então o executor é testado contra um driver em memória; 100% de cobertura fora do driver real.", "t44": "o driver &rarr;", "t45": "<span class=\"hash\">#</span> 02 &middot; Sistema", "t46": "<span class=\"hash\">#</span> 03 &middot; Sistema", "t47": "Privado &middot; só o método", "t48": "Pesquisa e execução de trading algorítmico &middot; Python &middot; rodando continuamente em conta demo", "t49": "Plataforma de ponta a ponta: coleta de dados, engenharia de features, validação temporal com\n            custos de transação e um daemon de execução ao vivo sob controle de risco.", "t50": "Em série temporal financeira é trivial produzir um backtest bonito e falso.\n            A única defesa é decidir o critério de aceitação <em style=\"color:var(--amber);font-style:normal\">antes</em> de ver o resultado.", "t51": "Protocolo de validação", "t52": "Walk-forward com <strong>embargo temporal</strong>, para evitar vazamento entre folds", "t53": "Holdout fora da amostra intocado, reservado antes de qualquer seleção de modelo", "t54": "<strong>Regra 1-SE</strong> para escolher o limiar, em vez de maximizar a métrica", "t55": "Ablação por grupo de features, para isolar a contribuição real de cada bloco", "t56": "Análise de sensibilidade e de drift entre períodos fora da amostra", "t57": "Comparação obrigatória com baseline: nenhum modelo aceito por acurácia absoluta", "t58": "O registro", "t59": "Toda hipótese que chegou a teste formal, inclusive as que custaram semanas. Esta tabela é o motivo para confiar na única linha que sobreviveu.", "t60": "Hipótese", "t61": "Medido", "t62": "Veredito", "t63": "CatBoost como gerador de sinal", "t64": "54,9% contra 51,6% do baseline; instável entre folds", "t65": "Alvo fixo de 1R", "t66": "Retorno menor e drawdown pior que o atual", "t67": "Profit factor 0,78", "t68": "Padrão PO3", "t69": "A vantagem não se manteve entre períodos", "t70": "Alvo de liquidez limitado a 2R", "t71": "PF 1,78, expectativa positiva em 3 folds", "t72": "Em uso", "t73": "1,78", "t74": "&minus;3,78%", "t75": "Drawdown máx.", "t76": "Arquivos de teste", "t77": "<strong>Como ler estes números.</strong> Backtest de out/2020 a jul/2026, com custos incluídos, em ambiente simulado. Slippage variável e swap ainda não estão totalmente modelados, e os dados são OHLCV. A hipótese resistiu a todos os testes aplicados até aqui; o próximo passo é a validação em conta real.", "t78": "Engenharia de execução", "t79": "Daemon com posse de PID assinada, recuperação de PID órfão e watchdog", "t80": "<strong>Reconciliação idempotente de ordens</strong> contra posições, ordens pendentes e histórico da corretora: nada de envio duplicado em reinício ou falha parcial", "t81": "<strong>Fail-closed</strong> em qualquer ambiguidade: estado corrompido, diário inconsistente, spread fora da faixa ou validação de margem falha interrompem as operações", "t82": "Circuit breaker para desconexão do terminal", "t83": "Arbitragem de exposição que serializa decisões entre estratégias concorrentes, sob um teto agregado", "t84": "Heartbeat, diário estruturado e alertas", "t85": "Pipeline automatizado de produção de conteúdo &middot; Python &middot; mais de 20 vídeos publicados", "t86": "Pesquisa, aquisição e auditoria de mídia licenciada, narração, renderização e empacotamento para publicação.\n            O repositório versiona <strong>conhecimento</strong>, não mídia: estratégia, decisões e o\n            raciocínio por trás de cada mudança, para que uma mudança de formato possa ser comparada, auditada e revertida.", "t87": "Governança", "t88": "Oito procedimentos operacionais encapsulados como skills versionadas, de disparo automático, encadeadas\n            por contrato. Junto delas, invariantes escritas, cada uma nascida de uma falha documentada:\n            nunca editar arquivo derivado quando existe gerador; publicação exige aprovação explícita a cada\n            envio, nunca herdada; caminhos explícitos em todo commit; parar e relatar erro factual\n            em vez de corrigir em silêncio.", "t89": "Gates encadeados, em ordem", "t90": "Vários provedores atrás de uma abstração canônica, adaptadores por fonte, reposição automática quando falta material num trecho. Todo arquivo passa por:", "t91": "Licença", "t92": "Rejeita NC/ND", "t93": "Procedência", "t94": "Exclui material gerado por IA, inclusive de fontes que o misturam sem avisar", "t95": "Técnico", "t96": "Paisagem, resolução mínima", "t97": "Assunto", "t98": "O título da fonte precisa citar o assunto do trecho", "t99": "Diversidade", "t100": "Evita repetição visual dentro de um trecho", "t101": "Deduplicação por hash, backoff por limite de taxa, manifesto de licença por arquivo.", "t102": "<strong>A questão em aberto, declarada como aberta.</strong> O formato atual ganha em taxa de clique\n              e desaba no tempo médio de visualização em relação ao anterior. A amostra é pequena e os números\n              divergem entre fontes, então o formato não mudou. Próximo passo: retenção segundo a segundo\n              da fonte primária, depois que a ferramenta assistida deu números conflitantes duas vezes.", "t103": "<span class=\"hash\">#</span> 04 &middot; Método e limites", "t104": "Como foram construídos", "t105": "Os cinco foram construídos orquestrando agentes de IA para código, comigo no papel de arquiteto e\n            revisor: definindo primeiro as invariantes de segurança, transformando contratos de arquitetura\n            em testes automatizados e revisando cada decisão contra eles. O ganho não é velocidade de\n            digitação; é explorar mais alternativas e descartar as ruins mais cedo. O que eu não delego é o\n            critério: o que é aceito, o que é cortado e por quê.", "t106": "O que isto <em>não</em> prova", "t107": "Nenhum deploy em produção com capital real. Nenhuma infraestrutura em nuvem e nenhum container: os\n            dois sistemas maiores rodam localmente no Windows. O CI existe só nos três projetos públicos e\n            roda testes; nada é implantado a partir dele. Nenhum código revisado por outro engenheiro, nada de\n            deep learning, nada de dados em escala.", "t108": "Minha trajetória profissional até aqui é em saúde corporativa, não em software. Estou no primeiro\n            semestre de Análise e Desenvolvimento de Sistemas, e tudo isto foi construído junto com um\n            trabalho em tempo integral.", "t109": "O que procuro é o contexto que ainda não tive em engenharia: um time, revisão de alguém\n            além de mim e prioridades que venham de fora da minha cabeça.", "t110": "<span class=\"hash\">#</span> 05 &middot; Contato", "t111": "Vamos conversar sobre o seu time.", "t112": "Robert Miranda &middot; Curitiba, Brasil", "t113": "Iniciar uma conversa", "t114": "Fechar &times;", "t115": "Seu nome", "t116": "Seu e-mail para retorno", "t117": "Tipo de vaga", "t118": "Selecione&hellip;", "t119": "Desenvolvedor júnior", "t120": "Estágio", "t121": "Contrato de automação", "t122": "Outro", "t123": "Modelo de trabalho", "t124": "Remoto", "t125": "Híbrido", "t126": "Presencial", "t127": "Prazo", "t128": "Imediato", "t129": "Em até 30 dias", "t130": "Mais adiante", "t131": "Detalhes", "t132": "Enviar", "t133": "Respondo por e-mail. Ou escreva direto para r.mirandaa@live.com", "t134": "Copiar endereço", "t135": "Canal de vídeo faceless", "t136": "Privado &middot; nome omitido"};
+  var PT = {"t0": "Cód. público", "t1": "Registro", "t2": "Escopo", "t3": "Contato", "t4": "Aberto a vagas de dev júnior", "t5": "Desenvolvedor Python &middot; transição de carreira", "t6": "Sistemas que passam pelo", "t7": "Construo sistemas que rodam sem supervisão e documento o que <strong>rejeitei</strong> antes\n          do que mantive. Nas áreas em que trabalho, um resultado que resiste ao escrutínio vale menos\n          que o próprio escrutínio.", "t8": "Ver código público", "t9": "Ler o registro", "t10": "'aberto a vagas de desenvolvedor júnior'", "t11": "Modelo", "t12": "Remoto / híbrido", "t13": "pytest &middot; público", "t14": "462 testes", "t15": "Graduação", "t16": "ADS &middot; 1º sem.", "t17": "Repositórios públicos", "t18": "Testes, todos sem rede", "t19": "Sistemas privados", "t20": "Hipóteses rejeitadas", "t21": "<span class=\"hash\">#</span> 01 &middot; Verificável", "t22": "Código público, <em>rejeições primeiro</em>", "t23": "Três dos cinco repositórios públicos, todos com CI em Python 3.11, 3.12 e 3.13. Cada um diz o\n        que se recusou a fazer, o que entra e o que sai, e onde conferir a afirmação. Os outros dois,\n        os dois sobre agentes de IA, estão em orquestração.", "t24": "Público", "t25": "Rejeitado", "t26": "Contrato", "t27": "Evidência", "t28": "Análise reprodutível da cota parlamentar da Câmara dos Deputados: 209.066 lançamentos em 2025.", "t29": "Ranking de deputados por valor gasto. A cota varia por estado para cobrir passagem aérea, então esse ranking mede a distância até Brasília. Um teste falha se alguém acrescentar uma consulta assim.", "t30": "Entra o arquivo público oficial; saem seis respostas em SQL sobre DuckDB e um relatório regenerado pelo CI, com o CPF do deputado descartado na carga.", "t31": "70 testes, 100% de cobertura. Achados fora da documentação: a API de despesas devolve HTTP 200 com lista vazia para todos os deputados; 937 lançamentos são de liderança partidária.", "t32": "o teste &rarr;", "t33": "os limites &rarr;", "t34": "Raspador web guiado por um YAML que descreve o que coletar.", "t35": "Contornar bloqueio com proxy, resolução de captcha ou navegador forjado. Das lojas medidas, uma devolveu 403, uma 503 e duas só renderizam depois do JavaScript. O alvo saiu dessa medição.", "t36": "Entra uma config YAML; sai CSV ou Excel, depois de ler o <code>robots.txt</code> e respeitar o <code>Crawl-delay</code>. Item sem campo obrigatório é descartado e relatado, nunca gravado em branco.", "t37": "155 testes, 100% de cobertura, suíte roda contra páginas salvas, sem rede.", "t38": "as decisões &rarr;", "t39": "execuções do CI &rarr;", "t40": "Executor de automação de navegador para fluxos descritos em YAML.", "t41": "Envio de mensagem em massa em rede social, o uso mais comum desse tipo de bot: viola os termos de terceiros e quebra a cada mudança de layout. Também rejeitado: testar o driver real do Selenium no CI.", "t42": "Entra um fluxo YAML; é validado por inteiro antes de abrir o navegador e depois roda com segredo por variável de ambiente, retry com backoff e <code>--dry-run</code>.", "t43": "79 testes. O Selenium fica atrás de uma interface de seis métodos, então o executor é testado contra um driver em memória; 100% de cobertura fora do driver real.", "t44": "o driver &rarr;", "t45": "<span class=\"hash\">#</span> 02 &middot; Sistema", "t46": "<span class=\"hash\">#</span> 03 &middot; Sistema", "t47": "Privado &middot; só o método", "t48": "Pesquisa e execução de trading algorítmico &middot; Python &middot; rodando continuamente em conta demo", "t49": "Plataforma de ponta a ponta: coleta de dados, engenharia de features, validação temporal com\n            custos de transação e um daemon de execução ao vivo sob controle de risco.", "t50": "Em série temporal financeira é trivial produzir um backtest bonito e falso.\n            A única defesa é decidir o critério de aceitação <em style=\"color:var(--amber);font-style:normal\">antes</em> de ver o resultado.", "t51": "Protocolo de validação", "t52": "Walk-forward com <strong>embargo temporal</strong>, para evitar vazamento entre folds", "t53": "Holdout fora da amostra intocado, reservado antes de qualquer seleção de modelo", "t54": "<strong>Regra 1-SE</strong> para escolher o limiar, em vez de maximizar a métrica", "t55": "Ablação por grupo de features, para isolar a contribuição real de cada bloco", "t56": "Análise de sensibilidade e de drift entre períodos fora da amostra", "t57": "Comparação obrigatória com baseline: nenhum modelo aceito por acurácia absoluta", "t58": "O registro", "t59": "Toda hipótese que chegou a teste formal, inclusive as que custaram semanas. Esta tabela é o motivo para confiar na única linha que sobreviveu.", "t60": "Hipótese", "t61": "Medido", "t62": "Veredito", "t63": "CatBoost como gerador de sinal", "t64": "54,9% contra 51,6% do baseline; instável entre folds", "t65": "Alvo fixo de 1R", "t66": "Retorno menor e drawdown pior que o atual", "t67": "Profit factor 0,78", "t68": "Padrão PO3", "t69": "A vantagem não se manteve entre períodos", "t70": "Alvo de liquidez limitado a 2R", "t71": "PF 1,78, expectativa positiva em 3 folds", "t72": "Em uso", "t73": "1,78", "t74": "&minus;3,78%", "t75": "Drawdown máx.", "t76": "Arquivos de teste", "t77": "<strong>Como ler estes números.</strong> Backtest de out/2020 a jul/2026, com custos incluídos, em ambiente simulado. Slippage variável e swap ainda não estão totalmente modelados, e os dados são OHLCV. A hipótese resistiu a todos os testes aplicados até aqui; o próximo passo é a validação em conta real.", "t78": "Engenharia de execução", "t79": "Daemon com posse de PID assinada, recuperação de PID órfão e watchdog", "t80": "<strong>Reconciliação idempotente de ordens</strong> contra posições, ordens pendentes e histórico da corretora: nada de envio duplicado em reinício ou falha parcial", "t81": "<strong>Fail-closed</strong> em qualquer ambiguidade: estado corrompido, diário inconsistente, spread fora da faixa ou validação de margem falha interrompem as operações", "t82": "Circuit breaker para desconexão do terminal", "t83": "Arbitragem de exposição que serializa decisões entre estratégias concorrentes, sob um teto agregado", "t84": "Heartbeat, diário estruturado e alertas", "t85": "Pipeline automatizado de produção de conteúdo &middot; Python &middot; mais de 20 vídeos publicados", "t86": "Pesquisa, aquisição e auditoria de mídia licenciada, narração, renderização e empacotamento para publicação.\n            O repositório versiona <strong>conhecimento</strong>, não mídia: estratégia, decisões e o\n            raciocínio por trás de cada mudança, para que uma mudança de formato possa ser comparada, auditada e revertida.", "t87": "Governança", "t88": "Oito procedimentos operacionais encapsulados como skills versionadas, de disparo automático, encadeadas\n            por contrato. Junto delas, invariantes escritas, cada uma nascida de uma falha documentada:\n            nunca editar arquivo derivado quando existe gerador; publicação exige aprovação explícita a cada\n            envio, nunca herdada; caminhos explícitos em todo commit; parar e relatar erro factual\n            em vez de corrigir em silêncio.", "t89": "Gates encadeados, em ordem", "t90": "Vários provedores atrás de uma abstração canônica, adaptadores por fonte, reposição automática quando falta material num trecho. Todo arquivo passa por:", "t91": "Licença", "t92": "Rejeita NC/ND", "t93": "Procedência", "t94": "Exclui material gerado por IA, inclusive de fontes que o misturam sem avisar", "t95": "Técnico", "t96": "Paisagem, resolução mínima", "t97": "Assunto", "t98": "O título da fonte precisa citar o assunto do trecho", "t99": "Diversidade", "t100": "Evita repetição visual dentro de um trecho", "t101": "Deduplicação por hash, backoff por limite de taxa, manifesto de licença por arquivo.", "t102": "<strong>A questão em aberto, declarada como aberta.</strong> O formato atual ganha em taxa de clique\n              e desaba no tempo médio de visualização em relação ao anterior. A amostra é pequena e os números\n              divergem entre fontes, então o formato não mudou. Próximo passo: retenção segundo a segundo\n              da fonte primária, depois que a ferramenta assistida deu números conflitantes duas vezes.", "t103": "<span class=\"hash\">#</span> 05 &middot; Método e limites", "t104": "Como foram construídos", "t105": "Todos foram construídos orquestrando agentes de IA para código, comigo no papel de arquiteto e\n            revisor: definindo primeiro as invariantes de segurança, transformando contratos de arquitetura\n            em testes automatizados e revisando cada decisão contra eles. O ganho não é velocidade de\n            digitação; é explorar mais alternativas e descartar as ruins mais cedo. O que eu não delego é o\n            critério: o que é aceito, o que é cortado e por quê.", "t106": "O que isto <em>não</em> prova", "t107": "Nenhum deploy em produção com capital real. Nenhuma infraestrutura em nuvem e nenhum container: os\n            dois sistemas maiores rodam localmente no Windows. O CI existe nos cinco repositórios públicos e\n            roda testes; nada é implantado a partir dele. Nenhum código revisado por outro engenheiro, nada de\n            deep learning, nada de dados em escala.", "t108": "Minha trajetória profissional até aqui é em saúde corporativa, não em software. Estou no primeiro\n            semestre de Análise e Desenvolvimento de Sistemas, e tudo isto foi construído junto com um\n            trabalho em tempo integral.", "t109": "O que procuro é o contexto que ainda não tive em engenharia: um time, revisão de alguém\n            além de mim e prioridades que venham de fora da minha cabeça.", "t110": "<span class=\"hash\">#</span> 06 &middot; Contato", "t111": "Vamos conversar sobre o seu time.", "t112": "Robert Miranda &middot; Curitiba, Brasil", "t113": "Iniciar uma conversa", "t114": "Fechar &times;", "t115": "Seu nome", "t116": "Seu e-mail para retorno", "t117": "Tipo de vaga", "t118": "Selecione&hellip;", "t119": "Desenvolvedor júnior", "t120": "Estágio", "t121": "Contrato de automação", "t122": "Outro", "t123": "Modelo de trabalho", "t124": "Remoto", "t125": "Híbrido", "t126": "Presencial", "t127": "Prazo", "t128": "Imediato", "t129": "Em até 30 dias", "t130": "Mais adiante", "t131": "Detalhes", "t132": "Enviar", "t133": "Respondo por e-mail. Ou escreva direto para r.mirandaa@live.com", "t134": "Copiar endereço", "t135": "Canal de vídeo faceless", "t136": "Privado &middot; nome omitido", "t137": "Agentes", "t138": "<span class=\"hash\">#</span> 04 &middot; Orquestração", "t139": "Orquestrar agentes, <em>com uma régua que sabe dizer não</em>", "t140": "Dois repositórios públicos em que o agente não é o produto: o que vale são as regras em volta dele.\n        Um fixa quem audita quem e se recusa a rodar quando essa independência cai; o outro mede o que o\n        modelo extrai contra um gabarito conferido à mão, e reprova a execução abaixo do limite.", "t141": "Uma skill de processo mais uma ponte em Python que roda auditoria de código entre agentes independentes.", "t142": "O agente que escreveu o código aprovando o próprio código, e aprovação que sobrevive ao commit para o qual foi dada. Quem faz cada papel é escolhido no primeiro uso e gravado em arquivo; a ponte recusa a execução em que o implementador também audita.", "t143": "Entram as ligações escolhidas e um commit. Sai cada auditor da fase chamado em ordem, só leitura, com o veredito preso ao SHA do commit. A sessão de cada auditor é conferida antes de a auditoria começar; um deslogado interrompe com <code>AUDITOR_NOT_READY</code> em vez de passar em silêncio.", "t144": "90 testes, 94% de cobertura, CI em 3.11&ndash;3.13. O README separa o que a ponte garante com teste do que é só regra escrita na skill.", "t145": "Extrai extratos de contrato de diário oficial municipal e mede o resultado contra um gabarito conferido à mão.", "t146": "Chamar um prompt de bom sem régua. Também rejeitado: repetir a chamada até passar e publicar número que o modelo inventou &mdash; valor ou CNPJ extraído precisa aparecer no texto de origem, senão o registro cai.", "t147": "Entra o texto do diário. Sai um registro por extrato, com esquema estrito, ou o motivo de ter caído. O modelo fica atrás de um adaptador e a suíte lê respostas gravadas: nenhum teste chama modelo, gasta ou usa rede.", "t148": "Sobre 13 extratos reais: 93,7% de acerto por campo, 95,4% nos campos que mudam o sentido do dado, por US$ 0,25. 68 testes, 97% de cobertura, e o CI reprova abaixo de 95% nesses campos e 90% no geral.", "t149": "o que é garantido &rarr;", "t150": "a medição &rarr;", "t151": "<strong>O que isto não prova.</strong> A ponte garante as regras que têm teste; o resto do processo mora no texto da skill e depende de quem roda. O gabarito cobre um município, um dia e um modelo. Nenhum dos dois repositórios rodou em um time que não o meu."};
   var STR = {
     en: {
       words: ['holdout', 'test suite', 'review', 'audit'],
