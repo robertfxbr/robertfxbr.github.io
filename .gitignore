@@ -1,0 +1,5 @@
+# local agent instructions, not part of the site
+.claude/
+CLAUDE.md
+.vscode/
+.idea/
