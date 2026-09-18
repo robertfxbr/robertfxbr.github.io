@@ -441,6 +441,11 @@
   @media (max-width: 960px) {
     .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 48px; }
     .portrait { max-width: 420px; margin-inline: auto; }   /* sem isto o retrato encosta à esquerda e sobra um vão à direita */
+    /* numa coluna só, o texto acima do retrato centra no mesmo eixo dele */
+    .hero > div:first-child { text-align: center; }
+    .hero .lede { margin-inline: auto; }
+    .hero .cta { justify-content: center; }
+    .hero .repl { margin-inline: auto; width: fit-content; max-width: 100%; text-align: left; }
     .index { grid-template-columns: 1fr 1fr; }              /* quatro números numa faixa estreita ficam espremidos */
     .index div { padding: 16px 0 16px 16px; border-bottom: 1px solid var(--line); }
     .index div:nth-child(odd) { padding-left: 0; }
