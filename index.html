@@ -447,8 +447,8 @@
     .hero .cta { justify-content: center; }
     .hero .repl { margin-inline: auto; width: fit-content; max-width: 100%; text-align: left; }
     .index { grid-template-columns: 1fr 1fr; }              /* quatro números numa faixa estreita ficam espremidos */
-    .index div { padding: 16px 0 16px 16px; border-bottom: 1px solid var(--line); }
-    .index div:nth-child(odd) { padding-left: 0; }
+    .index div { padding: 16px 8px; border-bottom: 1px solid var(--line); text-align: center; }   /* cada número centrado na sua metade */
+    .index div:first-child { padding-left: 8px; }            /* a regra de desktop zera esse lado e desequilibra o centro */
     .index div:nth-child(2n) { border-right: 0; }
     .index div:nth-last-child(-n+2) { border-bottom: 0; }
     .cards { grid-template-columns: 1fr; }
